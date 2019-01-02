@@ -24,6 +24,8 @@ import (
 	"testing"
 
 	"errors"
+
+	// "github.com/ouqiang/goutil"
 )
 
 func TestRequest_Get(t *testing.T) {
@@ -107,9 +109,9 @@ func TestRequest_makeBody(t *testing.T) {
 	// err = goutil.PanicToError(func() {
 	// 	r = req.makeBody(1)
 	// })
-	if err == nil {
-		t.Errorf("got err is nil, want err is not nil")
-	}
+	// if err == nil {
+	// 	t.Errorf("got err is nil, want err is not nil")
+	// }
 }
 
 func TestRequest_makeURLWithParams(t *testing.T) {
@@ -226,8 +228,7 @@ func TestRequest_SetRetryTimes(t *testing.T) {
 	}
 	s := httptest.NewServer(http.HandlerFunc(handler))
 	defer s.Close()
-	req := NewRequest()
-	req.SetRetryTimes(retryTimes)
+	req := NewRequest(WithRetryTime(retryTimes))
 	resp, err := req.Get(s.URL, nil, nil)
 	if err != nil {
 		t.Fatal(err)
@@ -240,7 +241,7 @@ func TestRequest_SetRetryTimes(t *testing.T) {
 	}
 
 	retryTimes = 3
-	req.SetRetryTimes(retryTimes)
+	req = NewRequest(WithRetryTime(retryTimes))
 	resp, err = req.Get(s.URL, nil, nil)
 	if err != nil {
 		t.Fatal(err)
@@ -254,7 +255,7 @@ func TestRequest_SetRetryTimes(t *testing.T) {
 	}
 
 	retryTimes = 1
-	req.SetRetryTimes(retryTimes)
+	req = NewRequest(WithRetryTime(retryTimes))
 	resp, err = req.Get(s.URL, nil, nil)
 	if err != nil {
 		t.Fatal(err)

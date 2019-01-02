@@ -18,26 +18,25 @@ package httpclient
 import (
 	"net/http"
 	"net/url"
-	"time"
 )
 
 // Get get请求
-func Get(url string, data url.Values, header http.Header, timeout time.Duration) (*Response, error) {
+func Get(url string, data url.Values, header http.Header) (*Response, error) {
 	req := NewRequest()
-	req.SetTimeout(timeout * time.Second)
+
 	return req.Get(url, data, header)
 }
 
 // Post 普通post请求
-func Post(url string, data interface{}, header http.Header, timeout time.Duration) (*Response, error) {
+func Post(url string, data interface{}, header http.Header) (*Response, error) {
 	req := NewRequest()
-	req.SetTimeout(timeout * time.Second)
+
 	return req.Post(url, data, header)
 }
 
 // PostJSON 发送json body
-func PostJSON(url string, data interface{}, header http.Header, timeout time.Duration) (*Response, error) {
+func PostJSON(url string, data interface{}, header http.Header) (*Response, error) {
 	req := NewRequest()
-	req.SetTimeout(timeout * time.Second)
+
 	return req.PostJSON(url, data, header)
 }

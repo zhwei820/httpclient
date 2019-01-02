@@ -10,11 +10,14 @@ func main() {
 }
 
 func work() {
-	res, err := httpclient.Get("http://192.168.1.5:5000/", nil, nil, 3)
+	res, err := httpclient.Get("http://www.baidu.com/", nil, nil)
+	println("1")
 	if err != nil {
 		println("err", err.Error())
 		return
 	}
 	data, err := res.String()
-	println(data)
+	// println(data)
+	_ = data
+
 }
